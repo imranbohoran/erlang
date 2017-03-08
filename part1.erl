@@ -1,4 +1,5 @@
 - module(part1).
+- include_lib("includes/eunit.hrl").
 - export([fib/1]).
 - export([adjacent_duplicates/1]).
 - export([deep_sum/1]).
@@ -40,3 +41,12 @@ perimeter(Shape) -> calculate_perimeter(Shape).
 calculate_perimeter({circle,Radius}) -> 2 * Radius * 3.141592;
 calculate_perimeter({right_triangle, Width, Height, Hypot}) -> Width + Height + Hypot;
 calculate_perimeter({rectangle, Width, Height}) -> 2 * (Width + Height).
+
+
+fib_test_() ->
+    [
+        ?_assert(fib(0) =:= 1),
+        ?_assert(fib(1) =:= 1),
+        ?_assert(fib(6) =:= 8),
+        ?_assert(fib(40) =:= 102334155)
+    ].
