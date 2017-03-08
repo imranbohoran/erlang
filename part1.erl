@@ -58,3 +58,12 @@ adjacent_duplicates_test_() ->
         ?_assert(adjacent_duplicates([1, 2, 3, 4]) =:= []),
         ?_assert(adjacent_duplicates([1, 2, 3, 2, 1]) =:= [])
     ].
+
+deep_sum_test_() ->
+    [
+        ?_assert(deep_sum([1, 2, 3, 4]) =:= 10),
+        ?_assert(deep_sum([1, 2, [2, 3, 3, 4], 4, 5]) =:= 24),
+        ?_assert(deep_sum([[[1, 2, 3, 4], 3, 4], 4, 5, [5, 6, 6, 7]]) =:= 50),
+        ?_assert(deep_sum([]) =:= 0)
+    ].
+
