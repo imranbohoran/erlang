@@ -3,6 +3,7 @@
 - export([adjacent_duplicates/1]).
 - export([deep_sum/1]).
 - export([concatenate_all/1]).
+- export([perimeter/1]).
 
 fib(N) -> fib_tail_recursive(N, 1, 1).
 fib_tail_recursive(0, _FibValue, _NextValue) -> 1;
@@ -33,3 +34,9 @@ capture_duplicates(FirstValue, ComparingValue, Rest, Result) ->
 deep_sum(L) -> lists:sum(lists:flatten(L)).
 
 concatenate_all(L) -> lists:flatten(L).
+
+perimeter(Shape) -> calculate_perimeter(Shape).
+
+calculate_perimeter({circle,Radius}) -> 2 * Radius * 3.141592;
+calculate_perimeter({right_triangle, Width, Height, Hypot}) -> Width + Height + Hypot;
+calculate_perimeter({rectangle, Width, Height}) -> 2 * (Width + Height).
