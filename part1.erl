@@ -50,3 +50,11 @@ fib_test_() ->
         ?_assert(fib(6) =:= 8),
         ?_assert(fib(40) =:= 102334155)
     ].
+
+adjacent_duplicates_test_() ->
+    [
+        ?_assert(adjacent_duplicates([1, 1, 2, 2, 3, 3]) =:= [1, 2, 3]),
+        ?_assert(adjacent_duplicates([1, 2, 2, 2, 3]) =:= [2, 2]),
+        ?_assert(adjacent_duplicates([1, 2, 3, 4]) =:= []),
+        ?_assert(adjacent_duplicates([1, 2, 3, 2, 1]) =:= [])
+    ].
