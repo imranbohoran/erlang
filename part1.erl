@@ -1,6 +1,7 @@
 - module(part1).
 - export([fib/1]).
 - export([adjacent_duplicates/1]).
+- export([deep_sum/1]).
 
 fib(N) -> fib_tail_recursive(N, 1, 1).
 fib_tail_recursive(0, _FibValue, _NextValue) -> 1;
@@ -27,3 +28,6 @@ capture_duplicates(FirstValue, FirstValue, Rest, Result) ->
 capture_duplicates(FirstValue, ComparingValue, Rest, Result) -> 
     [NextValue | Remaining] = Rest,
     capture_duplicates(ComparingValue, NextValue, Remaining, Result).
+
+deep_sum(L) -> lists:sum(lists:flatten(L)).
+
