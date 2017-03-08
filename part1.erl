@@ -67,3 +67,8 @@ deep_sum_test_() ->
         ?_assert(deep_sum([]) =:= 0)
     ].
 
+concatenate_all_test_() ->
+    [
+        ?_assert(concatenate_all(["Trevor","is","happy"]) =:= "Trevorishappy"),
+        ?_assert(concatenate_all(["Time",""," ","the ","Conquerer"]) =:= "Time the Conquerer")
+    ].
