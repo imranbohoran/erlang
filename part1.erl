@@ -72,3 +72,10 @@ concatenate_all_test_() ->
         ?_assert(concatenate_all(["Trevor","is","happy"]) =:= "Trevorishappy"),
         ?_assert(concatenate_all(["Time",""," ","the ","Conquerer"]) =:= "Time the Conquerer")
     ].
+
+perimeter_test_() ->
+    [
+        ?_assert(perimeter({circle, 3}) =:= 18.849552000000003),
+        ?_assert(perimeter({rectangle, 5, 7}) =:= 24),
+        ?_assert(perimeter({right_triangle, 3, 4, 5}) =:= 12)
+    ].
