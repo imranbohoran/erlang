@@ -5,6 +5,7 @@
 - export([deep_sum/1]).
 - export([concatenate_all/1]).
 - export([perimeter/1]).
+- export([permutations/1]).
 
 fib(N) -> fib_tail_recursive(N, 1, 1).
 fib_tail_recursive(0, _FibValue, _NextValue) -> 1;
@@ -42,7 +43,12 @@ calculate_perimeter({circle,Radius}) -> 2 * Radius * 3.141592;
 calculate_perimeter({right_triangle, Width, Height, Hypot}) -> Width + Height + Hypot;
 calculate_perimeter({rectangle, Width, Height}) -> 2 * (Width + Height).
 
+permutations([]) -> [[]];
+permutations([1]) -> [[1]];
+permutations(L) -> [[Head | Tail] || Head <- L, Tail <- permutations(L--[Head])].
 
+
+% Following are the unit tests for the expoosed functions
 fib_test_() ->
     [
         ?_assert(fib(0) =:= 1),
@@ -78,4 +84,11 @@ perimeter_test_() ->
         ?_assert(perimeter({circle, 3}) =:= 18.849552000000003),
         ?_assert(perimeter({rectangle, 5, 7}) =:= 24),
         ?_assert(perimeter({right_triangle, 3, 4, 5}) =:= 12)
+    ].
+
+permutations_test_() ->
+    [
+        ?_assert(permutations([]) =:= [[]]),
+        ?_assert(permutations([1]) =:= [[1]]),
+        ?_assert(permutations([1, 2, 3]) =:= [[1, 2, 3], [1, 3, 2], [2, 1, 3], [2, 3, 1], [3, 1, 2], [3, 2, 1]])
     ].
