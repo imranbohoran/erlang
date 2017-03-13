@@ -43,7 +43,9 @@ dictionary_listener(Dictionary) ->
       dictionary_listener(NewDictionary);
     {From, remove, Key} ->
       io:format("Removing"),
-      dictionary_listener(Dictionary);
+      NewDictionary = dict:erase(Key, Dictionary),
+      From ! {self(), "done"},
+      dictionary_listener(NewDictionary);
     {From, lookup, Key} ->
       From ! {self(), dict:fetch(Key, Dictionary)},
       dictionary_listener(Dictionary);
@@ -55,7 +57,7 @@ dictionary_listener(Dictionary) ->
     {From, size} ->
       From ! {self(), dict:size(Dictionary)},
       dictionary_listener(Dictionary);
-    {From, stop} ->
+    {_, stop} ->
       io:format("Stoppping...."),
       true
   end.
@@ -69,7 +71,11 @@ insert(Key, Value) ->
   end.
 
 remove(Key) ->
-  erlang:error(not_implemented).
+  Pid = whereis(dictionary_listener),
+  Pid ! {self(), remove, Key},
+  receive
+    _ -> ok
+  end.
 
 
 lookup(Key) ->
