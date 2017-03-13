@@ -45,7 +45,7 @@ dictionary_listener(Dictionary) ->
       io:format("Removing"),
       dictionary_listener(Dictionary);
     {From, lookup, Key} ->
-      io:format("Lookup"),
+      From ! {self(), dict:fetch(Key, Dictionary)},
       dictionary_listener(Dictionary);
     {From, clear} ->
       io:format("Clearing...."),
@@ -73,7 +73,13 @@ remove(Key) ->
 
 
 lookup(Key) ->
-  erlang:error(not_implemented).
+  Pid = whereis(dictionary_listener),
+  Pid ! {self(), lookup, Key},
+  receive
+    {_Pid, KeyValue} ->
+      KeyValue;
+    _ -> ok
+  end.
 
 
 clear() ->
