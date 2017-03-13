@@ -47,7 +47,7 @@ dictionary_listener(Dictionary) ->
       From ! {self(), "done"},
       dictionary_listener(NewDictionary);
     {From, lookup, Key} ->
-      From ! {self(), dict:fetch(Key, Dictionary)},
+      From ! {self(), dict:find(Key, Dictionary)},
       dictionary_listener(Dictionary);
     {From, clear} ->
       io:format("Clearing...."),
@@ -82,9 +82,9 @@ lookup(Key) ->
   Pid = whereis(dictionary_listener),
   Pid ! {self(), lookup, Key},
   receive
-    {_Pid, KeyValue} ->
+    {_Pid, {ok, KeyValue}} ->
       KeyValue;
-    _ -> ok
+    _ -> 'Not found'
   end.
 
 
