@@ -48,8 +48,10 @@ dictionary_listener(Dictionary) ->
       io:format("Lookup"),
       dictionary_listener(Dictionary);
     {From, clear} ->
-      io:format("Clearing"),
-      dictionary_listener(Dictionary);
+      io:format("Clearing...."),
+      NewDictionary = dict:new(),
+      From ! {self(), "done"},
+      dictionary_listener(NewDictionary);
     {From, size} ->
       From ! {self(), dict:size(Dictionary)},
       dictionary_listener(Dictionary);
