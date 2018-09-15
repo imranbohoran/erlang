@@ -36,6 +36,16 @@ capture_duplicates(_, ComparingValue, Rest, Result) ->
 
 deep_sum(L) -> lists:sum(lists:flatten(L)).
 
+deep_sum2(L) -> calculating_list_sum(lists:flatten(L), 0).
+
+calculating_list_sum([], Result) -> Result;
+
+calculating_list_sum(Items, Result) ->
+    [Head | Rest] = Items,
+    CurrentSum = Result + Head,
+    calculating_list_sum(Rest, CurrentSum).
+
+
 concatenate_all(L) -> lists:flatten(L).
 
 perimeter(Shape) -> calculate_perimeter(Shape).
@@ -72,6 +82,14 @@ deep_sum_test_() ->
         ?_assert(deep_sum([1, 2, [2, 3, 3, 4], 4, 5]) =:= 24),
         ?_assert(deep_sum([[[1, 2, 3, 4], 3, 4], 4, 5, [5, 6, 6, 7]]) =:= 50),
         ?_assert(deep_sum([]) =:= 0)
+    ].
+
+deep_sum2_test_() ->
+    [
+        ?_assert(deep_sum2([1, 2, 3, 4]) =:= 10),
+        ?_assert(deep_sum2([1, 2, [2, 3, 3, 4], 4, 5]) =:= 24),
+        ?_assert(deep_sum2([[[1, 2, 3, 4], 3, 4], 4, 5, [5, 6, 6, 7]]) =:= 50),
+        ?_assert(deep_sum2([]) =:= 0)
     ].
 
 concatenate_all_test_() ->
